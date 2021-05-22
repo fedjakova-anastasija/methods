@@ -1,0 +1,8 @@
+﻿  Arc.cpp
+  BFS.cpp
+D:\Study\methods\methods\BFS\BFS\BFS.cpp(117,21): warning C4018: <: несоответствие типов со знаком и без знака
+  Создание кода
+  Previous IPDB not found, fall back to full compilation.
+  All 481 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Создание кода завершено
+  BFS.vcxproj -> D:\Study\methods\methods\BFS\Release\BFS.exe
