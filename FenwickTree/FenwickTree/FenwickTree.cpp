@@ -16,12 +16,11 @@ enum Commands {
 };
 
 int rsq(int indexBegin) {
-    int result = 0;
-    for (indexBegin; indexBegin >= 0; indexBegin = (indexBegin & (indexBegin + 1)) - 1) {
-        result += fenwickTree[indexBegin];
-    }
+    int rsq = 0;
+    for (indexBegin; indexBegin >= 0; indexBegin = (indexBegin & (indexBegin + 1)) - 1)
+        rsq += fenwickTree[indexBegin];
 
-    return result;
+    return rsq;
 }
 
 void rsq(int indexBegin, int indexEnd) {

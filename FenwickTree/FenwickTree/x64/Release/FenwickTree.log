@@ -1,5 +1,5 @@
 ﻿  FenwickTree.cpp
-D:\Study\methods\methods\FenwickTree\FenwickTree\FenwickTree.cpp(59,14): warning C4101: command: неиспользованная локальная переменная
+D:\Study\methods\methods\FenwickTree\FenwickTree\FenwickTree.cpp(58,14): warning C4101: command: неиспользованная локальная переменная
   Создание кода
   3 of 228 functions ( 1.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
