@@ -40,8 +40,16 @@ int main()
 	int arcEnd;
 	int arcLength;
 	string line;
+	
 
 	input >> graphVerticesCount >> graphArcsCount >> startingVertexNumber >> endVertexNumber;
+	
+	vector<MaxPath> maxPath(graphVerticesCount + 1);
+	int* visited = new int[graphVerticesCount + 1];
+	list<int> queue;
+	
+	map<int, vector<Arc>> vertexArcs;
+	map<int, vector<Arc>>::iterator it;
 
 	if (IsLimitUncorrect(graphVerticesCount, minVertexCount, maxVertexCount) || IsLimitUncorrect(graphArcsCount, minArcCount, maxArcCount))
 	{
@@ -49,9 +57,6 @@ int main()
 
 		return 0;
 	}
-
-	map<int, vector<Arc>> vertexArcs;
-	map<int, vector<Arc>>::iterator it;
 
 	while (getline(input, line))
 	{
@@ -64,24 +69,14 @@ int main()
 
 		vertexArcs[arcStart] = arc;
 	}
-
 	
-	vector<MaxPath> maxPath(graphVerticesCount + 1);
-	int* visited = new int[graphVerticesCount + 1];
 	visited[startingVertexNumber] = true;
-
-	list<int> queue;
 	queue.push_back(startingVertexNumber);
 
-	for (auto & path : maxPath)
-	{
-		path = MaxPath();
-	}
+	for (int i = 0; i < maxPath.size(); ++i)
+		maxPath[i] = MaxPath();	
 
-	bool bfs = BFS(graphVerticesCount, startingVertexNumber, endVertexNumber, vertexArcs, maxPath, visited, queue);
-	
-
-	if (!bfs)	{		
+	if (!BFS(graphVerticesCount, startingVertexNumber, endVertexNumber, vertexArcs, maxPath, visited, queue))	{		
 		cout << "No" << endl;
 	}
 	else
