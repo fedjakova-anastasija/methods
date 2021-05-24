@@ -1,9 +1,11 @@
 #include <fstream>
 #include <queue>
+#include <sstream>
 #include <string>
 #include <iostream>
 #include <map>
 #include <vector>
+#include <stack>
 #include <list>
 #include "Arc.h"
 
@@ -27,7 +29,15 @@ void PrintResult(vector<MaxPath> results, int startingVertexNumber, int endVerte
 int main()
 {
 	string inputFileName = "input.txt";
+	string outputFileName = "output.txt";
 	ifstream input(inputFileName);
+	ofstream output(outputFileName);
+
+	if (!output)
+	{
+		cerr << "Uncorrect output file." << endl;
+		exit(1);
+	}
 
 	int graphVerticesCount;
 	int graphArcsCount;
@@ -71,8 +81,10 @@ int main()
 	visited[startingVertexNumber] = true;
 	queue.push_back(startingVertexNumber);
 
-	for (int i = 0; i < maxPath.size(); ++i)
-		maxPath[i] = MaxPath();	
+	for (auto & path : maxPath)
+	{
+		path = MaxPath();
+	}
 
 	if (!BFS(graphVerticesCount, startingVertexNumber, endVertexNumber, vertexArcs, maxPath, visited, queue))	{		
 		cout << "No" << endl;
