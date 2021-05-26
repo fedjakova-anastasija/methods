@@ -24,7 +24,7 @@ struct MaxPath
 
 bool IsLimitUncorrect(int count, int minCount, int maxCount);
 bool BFS(int graphVerticesCount, int startingVertexNumber, int endVertexNumber, map<int, vector<Arc>> vertexArcs, vector<MaxPath>& maxPath, int* visited, list<int> queue);
-void PrintResult(vector<MaxPath> results, int startingVertexNumber, int endVertexNumber);
+void PrintResult(vector<MaxPath> results, int startingVertexNumber, int endVertexNumber, ofstream &output);
 
 int main()
 {
@@ -87,12 +87,12 @@ int main()
 	}
 
 	if (!BFS(graphVerticesCount, startingVertexNumber, endVertexNumber, vertexArcs, maxPath, visited, queue))	{		
-		cout << "No" << endl;
+		output << "No" << endl;
 	}
 	else
 	{
-		cout << maxPath[endVertexNumber].maxPathLength << endl;
-		PrintResult(maxPath, startingVertexNumber, endVertexNumber);
+		output << maxPath[endVertexNumber].maxPathLength << endl;
+		PrintResult(maxPath, startingVertexNumber, endVertexNumber, output);
 	}
 }
 
@@ -131,24 +131,30 @@ bool BFS(int graphVerticesCount, int startingVertexNumber, int endVertexNumber, 
 			if (testedLength < maxPath[vertex].maxPathLength)
 				continue;
 
-			maxPath[vertex].maxPathLength = testedLength;
-			maxPath[vertex].prevVertex = currentVertex;
-			
-			queue.push_back(vertex);
-			visited[vertex] = true;
+			if (testedLength > maxPath[vertex].maxPathLength) {
+				maxPath[vertex].maxPathLength = testedLength;
+				maxPath[vertex].prevVertex = currentVertex;
+				visited[vertex] = false;
+			}
+
+			if (!visited[vertex])
+			{
+				queue.push_back(vertex);
+				visited[vertex] = true;
+			}
 		}
 	}
 
 	return true;
 }
 
-void PrintResult(vector<MaxPath> maxPath, int startingVertexNumber, int endVertexNumber) {
+void PrintResult(vector<MaxPath> maxPath, int startingVertexNumber, int endVertexNumber, ofstream &output) {
 	if (startingVertexNumber == endVertexNumber) {
-		cout << startingVertexNumber << " ";
+		output << startingVertexNumber << " ";
 		return;
     }
 	else {
-		PrintResult(maxPath, startingVertexNumber, maxPath[endVertexNumber].prevVertex);
-		cout << endVertexNumber << " ";
+		PrintResult(maxPath, startingVertexNumber, maxPath[endVertexNumber].prevVertex, output);
+		output << endVertexNumber << " ";
 	}
 }

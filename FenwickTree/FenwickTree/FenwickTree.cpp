@@ -15,23 +15,6 @@ enum Commands {
     COMMAND_UNKNOWN
 };
 
-int rsq(int indexBegin) {
-    int rsq = 0;
-    for (indexBegin; indexBegin >= 0; indexBegin = (indexBegin & (indexBegin + 1)) - 1)
-        rsq += fenwickTree[indexBegin];
-
-    return rsq;
-}
-
-void rsq(int indexBegin, int indexEnd) {
-    cout << " " << indexBegin << " " << indexEnd << " " << rsq(indexEnd) - rsq(indexBegin - 1) << endl;
-}
-
-void add(int index, int value) {
-    for (index; index < n; index |= index + 1)
-        fenwickTree[index] += value;
-}
-
 Commands convert(const string& str)
 {
     if(str == "add") return COMMAND_ADD;
@@ -39,9 +22,21 @@ Commands convert(const string& str)
     else return COMMAND_UNKNOWN;
 }
 
+int Rsq(int indexBegin);
+void Rsq(int indexBegin, int indexEnd, ofstream& output);
+void Add(int index, int value);
+
 int main() {
     string inputFileName = "input.txt";
+	string outputFileName = "output.txt";
 	ifstream input(inputFileName);
+	ofstream output(outputFileName);
+
+    if (!output)
+	{
+		cerr << "Uncorrect output file." << endl;
+		exit(1);
+	}
 
     input >> n;
 
@@ -53,7 +48,7 @@ int main() {
 
 	fenwickTree.assign(n, 0);
 	for (int i = 0; i < arr.size(); i++)
-		add(i, arr[i]);
+		Add(i, arr[i]);
 
     Commands command;
     string inputCommand;
@@ -67,18 +62,35 @@ int main() {
        switch (convert(inputCommand))
 	    {
 	    case COMMAND_ADD:
-		    std::cout << "add";
-            cout << " " << arr[firstArg] + secondArg << endl;
-            add(firstArg, secondArg);
+		    output << "add";
+            output << " " << arr[firstArg] + secondArg << endl;
+            Add(firstArg, secondArg);
 		    break;
 	    case COMMAND_RSQ:
-		    std::cout << "rsq";
-            rsq(firstArg, secondArg);
+		    output << "rsq";
+            Rsq(firstArg, secondArg, output);
 		    break;
 	    default:
-		    std::cout << "Unknown command.";
+		    output << "Unknown command.";
 		    break;
 	    }
         
     }
+}
+
+int Rsq(int indexBegin) {
+    int rsq = 0;
+    for (indexBegin; indexBegin >= 0; indexBegin = (indexBegin & (indexBegin + 1)) - 1)
+        rsq += fenwickTree[indexBegin];
+
+    return rsq;
+}
+
+void Rsq(int indexBegin, int indexEnd, ofstream &output) {
+    output << " " << indexBegin << " " << indexEnd << " " << Rsq(indexEnd) - Rsq(indexBegin - 1) << endl;
+}
+
+void Add(int index, int value) {
+    for (index; index < n; index |= index + 1)
+        fenwickTree[index] += value;
 }
