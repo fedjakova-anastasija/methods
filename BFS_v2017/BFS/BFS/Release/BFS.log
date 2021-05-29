@@ -1,0 +1,9 @@
+﻿  Arc.cpp
+  BFS.cpp
+d:\study\bfs\bfs\bfs.cpp(121): warning C4018: <: несоответствие типов со знаком и без знака
+  Создание кода
+  584 of 732 functions (79.8%) were compiled, the rest were copied from previous compilation.
+    560 functions were new in current compilation
+    45 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  BFS.vcxproj -> D:\Study\BFS\Release\BFS.exe

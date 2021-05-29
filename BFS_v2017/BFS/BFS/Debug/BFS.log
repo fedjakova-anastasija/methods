@@ -1,0 +1,5 @@
+﻿  Arc.cpp
+  BFS.cpp
+d:\study\bfs\bfs\bfs.cpp(121): warning C4018: <: несоответствие типов со знаком и без знака
+  Создание кода...
+  BFS.vcxproj -> D:\Study\BFS\Debug\BFS.exe
